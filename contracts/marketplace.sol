@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+// import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract NFTMarketplace is ReentrancyGuard, Ownable {
+contract NFTMarketplace is Ownable {
     struct Listing {
         uint256 price;
         address seller;
@@ -30,7 +30,7 @@ contract NFTMarketplace is ReentrancyGuard, Ownable {
 
     constructor() Ownable(0x7fDD9D9699A1Dd6a8Db5bd027803887aA166028b) {}
 
-    function listNFT(address _nftContract, uint256 _tokenId, uint256 _price) external nonReentrant {
+    function listNFT(address _nftContract, uint256 _tokenId, uint256 _price) external  {
         IERC721 nftContract = IERC721(_nftContract);
         require(nftContract.ownerOf(_tokenId) == msg.sender, "Not the owner");
         require(nftContract.getApproved(_tokenId) == address(this), "Marketplace not approved");
@@ -40,7 +40,7 @@ contract NFTMarketplace is ReentrancyGuard, Ownable {
         emit NFTListed(_nftContract, _tokenId, _price, msg.sender);
     }
 
-    function buyNFT(address _nftContract, uint256 _tokenId) external payable nonReentrant {
+    function buyNFT(address _nftContract, uint256 _tokenId) external payable {
         Listing memory listing = listings[_nftContract][_tokenId];
         require(listing.price > 0, "NFT not listed");
         require(msg.value == listing.price, "Incorrect value");
@@ -53,7 +53,7 @@ contract NFTMarketplace is ReentrancyGuard, Ownable {
         emit NFTBought(_nftContract, _tokenId, msg.value, msg.sender);
     }
 
-    function makeOffer(address _nftContract, uint256 _tokenId) external payable nonReentrant {
+    function makeOffer(address _nftContract, uint256 _tokenId) external payable {
         require(msg.value > 0, "Offer price must be greater than zero");
 
         offers[_nftContract][_tokenId].push(Offer(msg.value, msg.sender));
@@ -61,7 +61,7 @@ contract NFTMarketplace is ReentrancyGuard, Ownable {
         emit OfferMade(_nftContract, _tokenId, msg.value, msg.sender);
     }
 
-    function acceptOffer(address _nftContract, uint256 _tokenId, uint256 _offerIndex) external nonReentrant {
+    function acceptOffer(address _nftContract, uint256 _tokenId, uint256 _offerIndex) external {
         Offer memory offer = offers[_nftContract][_tokenId][_offerIndex];
         require(offer.price > 0, "Invalid offer");
 
@@ -76,7 +76,7 @@ contract NFTMarketplace is ReentrancyGuard, Ownable {
         emit OfferAccepted(_nftContract, _tokenId, offer.price, msg.sender);
     }
 
-    function cancelListing(address _nftContract, uint256 _tokenId) external nonReentrant {
+    function cancelListing(address _nftContract, uint256 _tokenId) external {
         Listing memory listing = listings[_nftContract][_tokenId];
         require(listing.seller == msg.sender, "Not the seller");
 
@@ -85,7 +85,7 @@ contract NFTMarketplace is ReentrancyGuard, Ownable {
         emit ListingCancelled(_nftContract, _tokenId);
     }
 
-    function addFunds() external payable nonReentrant {
+    function addFunds() external payable {
         require(msg.value > 0, "No funds sent");
 
         userFunds[msg.sender] += msg.value;
@@ -93,7 +93,7 @@ contract NFTMarketplace is ReentrancyGuard, Ownable {
         emit FundsAdded(msg.sender, msg.value);
     }
 
-    function withdrawFunds() external nonReentrant {
+    function withdrawFunds() external {
         uint256 balance = userFunds[msg.sender];
         require(balance > 0, "No funds to withdraw");
 
