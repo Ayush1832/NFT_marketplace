@@ -1,36 +1,19 @@
+
 // SPDX-License-Identifier: MIT
-// Compatible with OpenZeppelin Contracts ^5.0.0
-pragma solidity 0.8.20;
+pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
-contract MyNFT is ERC1155, Ownable, ERC1155Supply {
-    constructor(address initialOwner) ERC1155("Ayush") Ownable(initialOwner) {}
+contract MyNFT is ERC721URIStorage, Ownable {
+    uint256 public nextTokenId;
 
-    function setURI(string memory newuri) public onlyOwner {
-        _setURI(newuri);
-    }
+    constructor() ERC721("MyNFT", "MNFT") Ownable(0x7fDD9D9699A1Dd6a8Db5bd027803887aA166028b) {}
 
-    function mint(address account, uint256 id, uint256 amount, bytes memory data)
-        public
-        onlyOwner
-    {
-        _mint(account, id, amount, data);
-    }
-
-    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-        public
-        onlyOwner
-    {
-        _mintBatch(to, ids, amounts, data);
-    }
-
-    function _update(address from, address to, uint256[] memory ids, uint256[] memory values)
-        internal
-        override(ERC1155, ERC1155Supply)
-    {
-        super._update(from, to, ids, values);
+    function mint(string memory _tokenURI) external {
+        uint256 tokenId = nextTokenId;
+        _safeMint(msg.sender, tokenId);
+        _setTokenURI(tokenId, _tokenURI);
+        nextTokenId++;
     }
 }

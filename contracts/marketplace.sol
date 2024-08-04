@@ -18,22 +18,52 @@ contract NFTMarketplace is Ownable {
 
     mapping(address => mapping(uint256 => Listing)) public listings;
     mapping(address => mapping(uint256 => Offer[])) public offers;
-    mapping(address => uint256) public userFunds; 
+    mapping(address => uint256) public userFunds;
 
-    event NFTListed(address indexed nftContract, uint256 indexed tokenId, uint256 price, address indexed seller);
-    event NFTBought(address indexed nftContract, uint256 indexed tokenId, uint256 price, address indexed buyer);
-    event OfferMade(address indexed nftContract, uint256 indexed tokenId, uint256 price, address indexed buyer);
-    event OfferAccepted(address indexed nftContract, uint256 indexed tokenId, uint256 price, address indexed seller);
-    event ListingCancelled(address indexed nftContract, uint256 indexed tokenId);
+    event NFTListed(
+        address indexed nftContract,
+        uint256 indexed tokenId,
+        uint256 price,
+        address indexed seller
+    );
+    event NFTBought(
+        address indexed nftContract,
+        uint256 indexed tokenId,
+        uint256 price,
+        address indexed buyer
+    );
+    event OfferMade(
+        address indexed nftContract,
+        uint256 indexed tokenId,
+        uint256 price,
+        address indexed buyer
+    );
+    event OfferAccepted(
+        address indexed nftContract,
+        uint256 indexed tokenId,
+        uint256 price,
+        address indexed seller
+    );
+    event ListingCancelled(
+        address indexed nftContract,
+        uint256 indexed tokenId
+    );
     event FundsAdded(address indexed user, uint256 amount);
     event FundsWithdrawn(address indexed user, uint256 amount);
 
     constructor() Ownable(0x7fDD9D9699A1Dd6a8Db5bd027803887aA166028b) {}
 
-    function listNFT(address _nftContract, uint256 _tokenId, uint256 _price) external  {
+    function listNFT(
+        address _nftContract,
+        uint256 _tokenId,
+        uint256 _price
+    ) external {
         IERC721 nftContract = IERC721(_nftContract);
         require(nftContract.ownerOf(_tokenId) == msg.sender, "Not the owner");
-        require(nftContract.getApproved(_tokenId) == address(this), "Marketplace not approved");
+        require(
+            nftContract.getApproved(_tokenId) == address(this),
+            "Marketplace not approved"
+        );
 
         listings[_nftContract][_tokenId] = Listing(_price, msg.sender);
 
@@ -45,7 +75,11 @@ contract NFTMarketplace is Ownable {
         require(listing.price > 0, "NFT not listed");
         require(msg.value == listing.price, "Incorrect value");
 
-        IERC721(_nftContract).transferFrom(listing.seller, msg.sender, _tokenId);
+        IERC721(_nftContract).transferFrom(
+            listing.seller,
+            msg.sender,
+            _tokenId
+        );
         payable(listing.seller).transfer(msg.value);
 
         delete listings[_nftContract][_tokenId];
@@ -53,7 +87,10 @@ contract NFTMarketplace is Ownable {
         emit NFTBought(_nftContract, _tokenId, msg.value, msg.sender);
     }
 
-    function makeOffer(address _nftContract, uint256 _tokenId) external payable {
+    function makeOffer(
+        address _nftContract,
+        uint256 _tokenId
+    ) external payable {
         require(msg.value > 0, "Offer price must be greater than zero");
 
         offers[_nftContract][_tokenId].push(Offer(msg.value, msg.sender));
@@ -61,7 +98,11 @@ contract NFTMarketplace is Ownable {
         emit OfferMade(_nftContract, _tokenId, msg.value, msg.sender);
     }
 
-    function acceptOffer(address _nftContract, uint256 _tokenId, uint256 _offerIndex) external {
+    function acceptOffer(
+        address _nftContract,
+        uint256 _tokenId,
+        uint256 _offerIndex
+    ) external {
         Offer memory offer = offers[_nftContract][_tokenId][_offerIndex];
         require(offer.price > 0, "Invalid offer");
 
