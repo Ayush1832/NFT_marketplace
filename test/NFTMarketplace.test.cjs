@@ -1,12 +1,16 @@
-// test/NFTMarketplace.test.mjs
+// test/NFTMarketplace.test.cjs
 
-import { expect } from "chai";
-import { ethers } from "hardhat";
+const { ethers } = require("hardhat");
 
 describe("NFT Marketplace", function () {
+  let expect;
   let MyNFT, myNFT, NFTMarketplace, nftMarketplace;
   let owner, addr1, addr2;
   const tokenURI = "https://example.com/token/1";
+
+  before(async () => {
+    ({ expect } = await import("chai"));
+  });
 
   beforeEach(async function () {
     [owner, addr1, addr2] = await ethers.getSigners();
@@ -72,11 +76,11 @@ describe("NFT Marketplace", function () {
     it("Should add and withdraw funds", async function () {
       await nftMarketplace.connect(addr1).addFunds({ value: ethers.utils.parseEther("1") });
 
-      expect(await nftMarketplace.userFunds(addr1.address)).to.equal(ethers.utils.parseEther("1"));
+      expect((await nftMarketplace.userFunds(addr1.address)).toString()).to.equal(ethers.utils.parseEther("1").toString());
 
       await nftMarketplace.connect(addr1).withdrawFunds();
 
-      expect(await nftMarketplace.userFunds(addr1.address)).to.equal(0);
+      expect((await nftMarketplace.userFunds(addr1.address)).toString()).to.equal("0");
     });
   });
 });

@@ -571,45 +571,6 @@
         "ERC1155Supply"
       ]
     },
-    "C:\\Users\\LENOVO\\Desktop\\NFT_marketplace\\contracts\\NFT.sol": {
-      "lastModificationDate": 1722800440231,
-      "contentHash": "d01a950c72109813087becd3ac47d3f9",
-      "sourceName": "contracts/NFT.sol",
-      "solcConfig": {
-        "version": "0.8.20",
-        "settings": {
-          "evmVersion": "paris",
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.0"
-      ],
-      "artifacts": [
-        "MyNFT"
-      ]
-    },
     "C:\\Users\\LENOVO\\Desktop\\NFT_marketplace\\node_modules\\@openzeppelin\\contracts\\token\\ERC721\\extensions\\IERC721Metadata.sol": {
       "lastModificationDate": 1722772251283,
       "contentHash": "12c206f185cb951213799561fdcaa40d",
@@ -953,6 +914,45 @@
       ],
       "artifacts": [
         "ERC721URIStorage"
+      ]
+    },
+    "C:\\Users\\LENOVO\\Desktop\\NFT_marketplace\\contracts\\MyNFT.sol": {
+      "lastModificationDate": 1722853456909,
+      "contentHash": "d01a950c72109813087becd3ac47d3f9",
+      "sourceName": "contracts/MyNFT.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MyNFT"
       ]
     }
   }

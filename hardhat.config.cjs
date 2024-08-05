@@ -1,9 +1,8 @@
-import { HardhatUserConfig } from "hardhat/config";
-import "@nomiclabs/hardhat-waffle";
-import "@nomiclabs/hardhat-ethers";
+require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-ethers");
 
-const config: HardhatUserConfig = {
-  solidity: "0.8.0",
+module.exports = {
+  solidity: "0.8.20",
   paths: {
     sources: "./contracts",
     tests: "./test",
@@ -11,5 +10,3 @@ const config: HardhatUserConfig = {
     artifacts: "./artifacts"
   }
 };
-
-export default config;
