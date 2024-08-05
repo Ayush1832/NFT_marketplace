@@ -1,4 +1,3 @@
-// test/NFTMarketplace.test.cjs
 
 const { ethers } = require("hardhat");
 
