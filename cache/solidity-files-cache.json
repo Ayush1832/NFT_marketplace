@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\LENOVO\\Desktop\\NFT_marketplace\\contracts\\marketplace.sol": {
-      "lastModificationDate": 1722858762550,
-      "contentHash": "7cdce45c2cbea0cb7a5dc17fe2d9059b",
+      "lastModificationDate": 1722941334423,
+      "contentHash": "17dba0eafe7330b5db53c9ac7914f276",
       "sourceName": "contracts/marketplace.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -916,10 +916,10 @@
         "ERC721URIStorage"
       ]
     },
-    "C:\\Users\\LENOVO\\Desktop\\NFT_marketplace\\contracts\\MyNFT.sol": {
-      "lastModificationDate": 1722853456909,
-      "contentHash": "d01a950c72109813087becd3ac47d3f9",
-      "sourceName": "contracts/MyNFT.sol",
+    "C:\\Users\\LENOVO\\Desktop\\NFT_marketplace\\contracts\\NFT.sol": {
+      "lastModificationDate": 1722942051369,
+      "contentHash": "342fecf3dbef8ec485a8506ad5cc8c2a",
+      "sourceName": "contracts/NFT.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
@@ -952,7 +952,7 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "MyNFT"
+        "NFT"
       ]
     }
   }

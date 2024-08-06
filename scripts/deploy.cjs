@@ -2,23 +2,23 @@
 const { ethers, run } = require("hardhat");
 
 async function main() {
-  // Get the contract factories
-  const MyNFT = await ethers.getContractFactory("MyNFT");
+ 
+  const NFT = await ethers.getContractFactory("NFT");
   const NFTMarketplace = await ethers.getContractFactory("NFTMarketplace");
 
-  // Deploy NFT contract
-  const myNFT = await MyNFT.deploy();
-  await myNFT.deployed();
-  console.log("MyNFT deployed to:", myNFT.address);
+  // Deployying nft
+  const nft = await NFT.deploy();
+  await nft.deployed();
+  console.log("NFT deployed to:", nft.address);
 
-  // Deploy NFTMarketplace contract
+  // Deploying NFTMarketplace
   const nftMarketplace = await NFTMarketplace.deploy();
   await nftMarketplace.deployed();
   console.log("NFTMarketplace deployed to:", nftMarketplace.address);
 
   // Verify contracts
   await run("verify:verify", {
-    address: myNFT.address,
+    address: nft.address,
     constructorArguments: [],
   });
 

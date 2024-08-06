@@ -51,7 +51,7 @@ contract NFTMarketplace is Ownable {
     event FundsAdded(address indexed user, uint256 amount);
     event FundsWithdrawn(address indexed user, uint256 amount);
 
-    constructor() Ownable(0x7fDD9D9699A1Dd6a8Db5bd027803887aA166028b) {}
+    constructor() Ownable(0xd53082e7b78f687823aE781E924c161E4d7a0d74) {}
 
     function listNFT(
         address _nftContract,
