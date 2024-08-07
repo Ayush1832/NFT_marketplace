@@ -14,7 +14,19 @@ module.exports = {
     }
   },
   etherscan: {
-    apiKey: "9AMUIR461QWPW38VCEWX9QEQ17IJWECXZD"
+    apiKey: {
+      polygonAmoy:`f63f5561-5a98-4371-adfd-fc7c0643df0f`,
+    },
+    customChains: [
+      {
+        network: "polygonAmoy",
+        chainId: 80002,
+        urls: {
+          apiURL: "https://www.oklink.com/api/explorer/v1/contract/verify/async/api/polygonAmoy",
+          browserURL: "https://www.oklink.com/polygonAmoy"
+        },
+      }
+    ]
   },
   paths: {
     sources: "./contracts",
