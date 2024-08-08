@@ -16,12 +16,13 @@ async function main() {
   await nftMarketplace.deployed();
   console.log("NFTMarketplace deployed to:", nftMarketplace.address);
 
-  // Verify contracts
+  // Verifying  NFT contract
   await run("verify:verify", {
     address: nft.address,
     constructorArguments: [],
   });
 
+ // Verifying Marketplace
   await run("verify:verify", {
     address: nftMarketplace.address,
     constructorArguments: [],
