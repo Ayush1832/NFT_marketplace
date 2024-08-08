@@ -10,7 +10,7 @@ module.exports = {
   networks: {
     amoy: {
       url: "https://rpc-amoy.polygon.technology",
-      accounts: [`650fe80b3e56248ba2dad4a2331faeb2413fa45df68e37c8b4d16af967cd6cdd`]
+      accounts: [`${process.env.PRIVATE_KEY}`]
     }
   },
   etherscan: {
