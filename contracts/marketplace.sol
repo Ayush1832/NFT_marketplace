@@ -20,6 +20,8 @@ contract NFTMarketplace is Ownable {
     mapping(address => mapping(uint256 => Offer[])) public offers;
     mapping(address => uint256) public userFunds;
 
+    constructor() Ownable(msg.sender) {}
+
     event NFTListed(
         address indexed nftContract,
         uint256 indexed tokenId,
@@ -51,7 +53,7 @@ contract NFTMarketplace is Ownable {
     event FundsAdded(address indexed user, uint256 amount);
     event FundsWithdrawn(address indexed user, uint256 amount);
 
-    constructor() Ownable(0xd53082e7b78f687823aE781E924c161E4d7a0d74) {}
+    
 
     function listNFT(
         address _nftContract,
