@@ -54,6 +54,23 @@ contract NFTMarketplace is Ownable {
     event FundsWithdrawn(address indexed user, uint256 amount);
 
     
+    function addFunds() external payable {
+        require(msg.value > 0, "No funds sent");
+
+        userFunds[msg.sender] += msg.value;
+
+        emit FundsAdded(msg.sender, msg.value);
+    }
+
+    function withdrawFunds() external {
+        uint256 balance = userFunds[msg.sender];
+        require(balance > 0, "No funds to withdraw");
+
+        userFunds[msg.sender] = 0;
+        payable(msg.sender).transfer(balance);
+
+        emit FundsWithdrawn(msg.sender, balance);
+    }
 
     function listNFT(
         address _nftContract,
@@ -126,24 +143,6 @@ contract NFTMarketplace is Ownable {
         delete listings[_nftContract][_tokenId];
 
         emit ListingCancelled(_nftContract, _tokenId);
-    }
-
-    function addFunds() external payable {
-        require(msg.value > 0, "No funds sent");
-
-        userFunds[msg.sender] += msg.value;
-
-        emit FundsAdded(msg.sender, msg.value);
-    }
-
-    function withdrawFunds() external {
-        uint256 balance = userFunds[msg.sender];
-        require(balance > 0, "No funds to withdraw");
-
-        userFunds[msg.sender] = 0;
-        payable(msg.sender).transfer(balance);
-
-        emit FundsWithdrawn(msg.sender, balance);
     }
 
     receive() external payable {}
